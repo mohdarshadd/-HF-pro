@@ -166,10 +166,10 @@ export default function CheckoutClient() {
                 <label className="block text-sm font-medium text-foreground mb-1.5">
                   Order Type
                 </label>
-                <div className="flex items-center gap-3 py-3 px-4 rounded-xl border-2 border-brand bg-brand/5">
-                  <span className="text-lg">🍽️</span>
+                <div className="inline-flex items-center gap-2 py-2 px-4 rounded-xl border-2 border-brand bg-brand/5">
+                  <span className="text-base">🍽️</span>
                   <span className="text-sm font-semibold text-brand">Dine-in</span>
-                  <svg className="w-4 h-4 text-brand ml-auto" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                  <svg className="w-4 h-4 text-brand" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
