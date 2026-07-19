@@ -86,6 +86,17 @@ export default function CheckoutClient() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Full-screen loader overlay */}
+      {loading && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/90 backdrop-blur-sm">
+          <div className="text-center">
+            <div className="w-16 h-16 rounded-full border-4 border-brand/20 border-t-brand animate-spin mx-auto mb-5" />
+            <p className="text-lg font-semibold text-foreground mb-1">Placing your order...</p>
+            <p className="text-sm text-muted">Hang tight, this won&apos;t take long</p>
+          </div>
+        </div>
+      )}
+
       <h1 className="text-2xl font-bold text-foreground mb-8">Checkout</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
