@@ -15,7 +15,6 @@ export default function CheckoutClient() {
     name: "",
     phone: "",
     email: "",
-    address: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -30,7 +29,7 @@ export default function CheckoutClient() {
     e.preventDefault();
     setError("");
 
-    if (!form.name || !form.phone || !form.email || !form.address) {
+    if (!form.name || !form.phone || !form.email) {
       setError("Please fill in all fields");
       return;
     }
@@ -54,7 +53,7 @@ export default function CheckoutClient() {
             name: form.name,
             phone: form.phone,
             email: form.email,
-            address: form.address,
+            address: "Dine-in",
             orderType: "dinein",
           },
         }),
@@ -163,24 +162,17 @@ export default function CheckoutClient() {
                 />
               </div>
 
-              <div className="mt-4 bg-cream/50 border border-border rounded-xl p-4 text-center">
-                <p className="text-sm text-muted">
-                  📍 Dine in at <span className="font-semibold text-foreground">Hello Food</span>, Gandhi Stadium Road, Pilibhit
-                </p>
-              </div>
-
               <div className="mt-4">
                 <label className="block text-sm font-medium text-foreground mb-1.5">
-                  Address / Table No.
+                  Order Type
                 </label>
-                <input
-                  type="text"
-                  value={form.address}
-                  onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  required
-                  className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
-                  placeholder="Your address or table number"
-                />
+                <div className="flex items-center gap-3 py-3 px-4 rounded-xl border-2 border-brand bg-brand/5">
+                  <span className="text-lg">🍽️</span>
+                  <span className="text-sm font-semibold text-brand">Dine-in</span>
+                  <svg className="w-4 h-4 text-brand ml-auto" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
               </div>
             </div>
 
