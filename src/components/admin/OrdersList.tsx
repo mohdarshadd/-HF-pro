@@ -53,6 +53,8 @@ export default function OrdersList() {
 
   useEffect(() => {
     fetchOrders();
+    const interval = setInterval(fetchOrders, 10000);
+    return () => clearInterval(interval);
   }, []);
 
   const updateOrderStatus = async (orderId: string, status: string) => {
