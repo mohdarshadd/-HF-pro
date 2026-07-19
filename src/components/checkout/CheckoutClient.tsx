@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/hooks/useCart";
 import Link from "next/link";
@@ -9,6 +9,7 @@ export default function CheckoutClient() {
   const router = useRouter();
   const { items, getTotal, clearCart } = useCart();
   const total = getTotal();
+  const orderPlaced = useRef(false);
 
   const [form, setForm] = useState({
     name: "",
@@ -20,7 +21,7 @@ export default function CheckoutClient() {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (items.length === 0) {
+    if (items.length === 0 && !orderPlaced.current) {
       router.push("/menu");
     }
   }, [items.length, router]);
@@ -72,6 +73,7 @@ export default function CheckoutClient() {
         }),
       });
 
+      orderPlaced.current = true;
       clearCart();
       router.push(`/checkout/success?orderId=${data.dbOrderId}`);
     } catch {
