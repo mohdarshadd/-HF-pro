@@ -176,10 +176,10 @@ export default function OrdersList() {
       </div>
 
       {/* Status Filter Pills */}
-      <div className="flex gap-2 mb-6 flex-wrap">
+      <div className="flex gap-1.5 sm:gap-2 mb-4 sm:mb-6 flex-wrap">
         <button
           onClick={() => setStatusFilter("")}
-          className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+          className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-all ${
             statusFilter === ""
               ? "bg-brand text-white shadow-sm"
               : "bg-white border border-border text-muted hover:text-foreground hover:border-border/80"
@@ -193,7 +193,7 @@ export default function OrdersList() {
             <button
               key={key}
               onClick={() => setStatusFilter(key)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-all ${
                 statusFilter === key
                   ? `${config.bg} ${config.color} shadow-sm`
                   : "bg-white border border-border text-muted hover:text-foreground hover:border-border/80"
@@ -219,7 +219,7 @@ export default function OrdersList() {
             >
               {/* Order Header */}
               <div
-                className="p-4 sm:p-5 cursor-pointer transition-colors hover:bg-cream/15"
+                className="p-3 sm:p-5 cursor-pointer transition-colors hover:bg-cream/15"
                 onClick={() => setExpandedId(isExpanded ? null : order._id)}
               >
                 <div className="flex items-center justify-between gap-4">
@@ -387,7 +387,7 @@ export default function OrdersList() {
                         </svg>
                         Update Order Status
                       </h4>
-                      <div className="flex gap-2 flex-wrap">
+                      <div className="flex gap-1.5 sm:gap-2 flex-wrap">
                         {(["placed", "preparing", "ready", "delivered", "cancelled"] as const).map((status) => {
                           const sc = statusConfig[status];
                           const isActive = order.orderStatus === status;
@@ -396,7 +396,7 @@ export default function OrdersList() {
                               key={status}
                               onClick={() => updateOrderStatus(order._id, status)}
                               disabled={isActive}
-                              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all capitalize ${
+                              className={`flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-[11px] sm:text-xs font-semibold transition-all capitalize ${
                                 isActive
                                   ? `${sc.bg} ${sc.color} cursor-default`
                                   : "bg-white border border-border text-muted hover:border-brand/30 hover:text-brand hover:bg-brand/5"

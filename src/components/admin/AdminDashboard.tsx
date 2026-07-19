@@ -162,7 +162,7 @@ export default function AdminDashboard() {
         menuCount={items.length}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {activeTab === "orders" ? (
           <OrdersList />
         ) : (
@@ -228,10 +228,10 @@ export default function AdminDashboard() {
             </div>
 
             {/* Toolbar */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
-              <div className="flex items-center gap-2 flex-1 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-4 sm:mb-6">
+              <div className="flex items-center gap-2 w-full">
                 {/* Search */}
-                <div className="relative flex-1">
+                <div className="relative flex-1 min-w-0">
                   <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                   </svg>
@@ -248,9 +248,9 @@ export default function AdminDashboard() {
                 <select
                   value={filter}
                   onChange={(e) => setFilter(e.target.value)}
-                  className="px-3 py-2.5 rounded-xl border border-border text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all"
+                  className="px-3 py-2.5 rounded-xl border border-border text-sm bg-white focus:outline-none focus:ring-2 focus:ring-brand/20 focus:border-brand transition-all shrink-0"
                 >
-                  <option value="">All Categories</option>
+                  <option value="">All</option>
                   {uniqueCategories.map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
@@ -259,7 +259,7 @@ export default function AdminDashboard() {
 
               <button
                 onClick={openAdd}
-                className="bg-brand text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-hover transition-all active:scale-[0.98] flex items-center gap-2 shrink-0"
+                className="bg-brand text-white px-5 py-2.5 rounded-xl text-sm font-semibold hover:bg-brand-hover transition-all active:scale-[0.98] flex items-center justify-center gap-2 shrink-0"
               >
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
@@ -303,12 +303,13 @@ export default function AdminDashboard() {
               </div>
             ) : (
               <div className="bg-white rounded-2xl border border-border/50 overflow-hidden">
-                <div className="overflow-x-auto">
+                {/* Desktop Table */}
+                <div className="hidden sm:block overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-border/50">
                         <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider">Name</th>
-                        <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider hidden sm:table-cell">Category</th>
+                        <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider">Category</th>
                         <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider">Price</th>
                         <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider hidden md:table-cell">Type</th>
                         <th className="text-left px-5 py-3.5 font-semibold text-muted text-xs uppercase tracking-wider">Status</th>
@@ -328,9 +329,8 @@ export default function AdminDashboard() {
                               <span className={`w-2 h-2 rounded-full shrink-0 ${item.isVeg ? "bg-veg" : "bg-nonveg"}`} />
                               <span className="font-medium text-foreground truncate max-w-[200px]">{item.name}</span>
                             </div>
-                            <span className="text-xs text-muted sm:hidden mt-0.5 block">{item.category}</span>
                           </td>
-                          <td className="px-5 py-3.5 text-muted hidden sm:table-cell">
+                          <td className="px-5 py-3.5 text-muted">
                             <span className="inline-flex px-2 py-0.5 rounded-md bg-cream/50 text-xs font-medium">{item.category}</span>
                           </td>
                           <td className="px-5 py-3.5">
@@ -393,6 +393,60 @@ export default function AdminDashboard() {
                       ))}
                     </tbody>
                   </table>
+                </div>
+
+                {/* Mobile Cards */}
+                <div className="sm:hidden divide-y divide-border/30">
+                  {filteredItems.map((item) => (
+                    <div key={item._id} className="p-4">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className={`w-2 h-2 rounded-full shrink-0 ${item.isVeg ? "bg-veg" : "bg-nonveg"}`} />
+                            <h3 className="text-sm font-semibold text-foreground truncate">{item.name}</h3>
+                          </div>
+                          <p className="text-xs text-muted mb-1.5">{item.category}</p>
+                          {item.hasSizes ? (
+                            <div className="flex flex-wrap gap-2">
+                              {item.sizes.map((s) => (
+                                <span key={s.label} className="text-xs text-muted">
+                                  {s.label}: <span className="font-medium text-foreground">₹{s.price}</span>
+                                </span>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-sm font-bold text-foreground">₹{item.price}</span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-1 shrink-0">
+                          <button
+                            onClick={() => toggleAvailability(item)}
+                            className={`px-2 py-1 rounded-full text-[10px] font-semibold transition-all ${
+                              item.isAvailable ? "bg-veg/10 text-veg" : "bg-muted/10 text-muted"
+                            }`}
+                          >
+                            {item.isAvailable ? "In Stock" : "Out"}
+                          </button>
+                          <button
+                            onClick={() => openEdit(item)}
+                            className="p-1.5 rounded-lg text-muted hover:text-brand hover:bg-brand/5 transition-all"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                            </svg>
+                          </button>
+                          <button
+                            onClick={() => handleDelete(item._id)}
+                            className="p-1.5 rounded-lg text-muted hover:text-red-500 hover:bg-red-50 transition-all"
+                          >
+                            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             )}
