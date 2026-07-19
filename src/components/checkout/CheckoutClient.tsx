@@ -15,6 +15,7 @@ export default function CheckoutClient() {
     name: "",
     phone: "",
     email: "",
+    orderType: "delivery",
     address: "",
   });
   const [loading, setLoading] = useState(false);
@@ -30,8 +31,12 @@ export default function CheckoutClient() {
     e.preventDefault();
     setError("");
 
-    if (!form.name || !form.phone || !form.email || !form.address) {
+    if (!form.name || !form.phone || !form.email) {
       setError("Please fill in all fields");
+      return;
+    }
+    if (form.orderType === "delivery" && !form.address) {
+      setError("Please enter your delivery address");
       return;
     }
 
@@ -50,7 +55,13 @@ export default function CheckoutClient() {
             price: i.price,
             quantity: i.quantity,
           })),
-          customer: form,
+          customer: {
+            name: form.name,
+            phone: form.phone,
+            email: form.email,
+            address: form.orderType === "delivery" ? form.address : "Dine-in",
+            orderType: form.orderType,
+          },
         }),
       });
 
@@ -159,17 +170,59 @@ export default function CheckoutClient() {
 
               <div className="mt-4">
                 <label className="block text-sm font-medium text-foreground mb-1.5">
-                  Delivery Address
+                  Order Type
                 </label>
-                <textarea
-                  value={form.address}
-                  onChange={(e) => setForm({ ...form, address: e.target.value })}
-                  required
-                  rows={3}
-                  className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand resize-none"
-                  placeholder="Full delivery address with landmark"
-                />
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, orderType: "delivery", address: "" })}
+                    className={`flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-sm font-semibold transition-all ${
+                      form.orderType === "delivery"
+                        ? "border-brand bg-brand/5 text-brand"
+                        : "border-border text-muted hover:border-border hover:bg-gray-50"
+                    }`}
+                  >
+                    <span className="text-lg">🚗</span>
+                    Delivery
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setForm({ ...form, orderType: "dinein", address: "" })}
+                    className={`flex items-center justify-center gap-2 py-3 rounded-xl border-2 text-sm font-semibold transition-all ${
+                      form.orderType === "dinein"
+                        ? "border-brand bg-brand/5 text-brand"
+                        : "border-border text-muted hover:border-border hover:bg-gray-50"
+                    }`}
+                  >
+                    <span className="text-lg">🍽️</span>
+                    Dine-in
+                  </button>
+                </div>
               </div>
+
+              {form.orderType === "delivery" && (
+                <div className="mt-4">
+                  <label className="block text-sm font-medium text-foreground mb-1.5">
+                    Delivery Address
+                  </label>
+                  <input
+                    type="text"
+                    value={form.address}
+                    onChange={(e) => setForm({ ...form, address: e.target.value })}
+                    required
+                    className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
+                    placeholder="Full delivery address with landmark"
+                  />
+                </div>
+              )}
+
+              {form.orderType === "dinein" && (
+                <div className="mt-4 bg-cream/50 border border-border rounded-xl p-4 text-center">
+                  <p className="text-sm text-muted">
+                    📍 Dine in at <span className="font-semibold text-foreground">Hello Food</span>, Gandhi Stadium Road, Pilibhit
+                  </p>
+                </div>
+              )}
             </div>
 
             {/* Place Order Button */}
