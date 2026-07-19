@@ -15,6 +15,7 @@ export default function CheckoutClient() {
     name: "",
     phone: "",
     email: "",
+    address: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -29,7 +30,7 @@ export default function CheckoutClient() {
     e.preventDefault();
     setError("");
 
-    if (!form.name || !form.phone || !form.email) {
+    if (!form.name || !form.phone || !form.email || !form.address) {
       setError("Please fill in all fields");
       return;
     }
@@ -53,7 +54,7 @@ export default function CheckoutClient() {
             name: form.name,
             phone: form.phone,
             email: form.email,
-            address: "Dine-in",
+            address: form.address,
             orderType: "dinein",
           },
         }),
@@ -166,6 +167,20 @@ export default function CheckoutClient() {
                 <p className="text-sm text-muted">
                   📍 Dine in at <span className="font-semibold text-foreground">Hello Food</span>, Gandhi Stadium Road, Pilibhit
                 </p>
+              </div>
+
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-foreground mb-1.5">
+                  Address / Table No.
+                </label>
+                <input
+                  type="text"
+                  value={form.address}
+                  onChange={(e) => setForm({ ...form, address: e.target.value })}
+                  required
+                  className="w-full px-4 py-3 rounded-xl border border-border text-sm focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand"
+                  placeholder="Your address or table number"
+                />
               </div>
             </div>
 
