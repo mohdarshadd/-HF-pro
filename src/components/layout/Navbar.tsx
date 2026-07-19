@@ -48,8 +48,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <img src="/logo.png" alt="Hello Food" className="h-10 w-auto" />
-            <span className="text-lg font-bold text-brand hidden sm:block">Hello Food</span>
+            <img src="/logo.png" alt="Hello Food" className="h-10 w-auto hidden sm:block" />
+            <span className="text-lg font-bold text-brand">Hello Food</span>
           </Link>
 
           {/* Desktop nav */}
