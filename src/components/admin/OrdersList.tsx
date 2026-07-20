@@ -117,62 +117,27 @@ export default function OrdersList() {
   return (
     <div>
       {/* Stats Row */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-        <div className="bg-white rounded-2xl border border-border/50 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-brand/5 flex items-center justify-center">
-              <svg className="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{orders.length}</p>
-              <p className="text-xs text-muted">Total Orders</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-border/50 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center">
-              <svg className="w-5 h-5 text-amber-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{activeOrders.length}</p>
-              <p className="text-xs text-muted">Active</p>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
+        {[
+          { value: orders.length, label: "Total Orders", bg: "bg-brand/5", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25z" />, color: "text-brand" },
+          { value: activeOrders.length, label: "Active", bg: "bg-amber-50", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />, color: "text-amber-500" },
+          { value: deliveredOrders.length, label: "Delivered", bg: "bg-emerald-50", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />, color: "text-emerald-500" },
+          { value: `₹${totalRevenue.toLocaleString("en-IN")}`, label: "Revenue", bg: "bg-veg/5", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />, color: "text-veg" },
+        ].map((stat, i) => (
+          <div key={i} className="bg-white rounded-xl border border-border/50 p-3 sm:p-4 overflow-hidden">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
+                <svg className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                  {stat.icon}
+                </svg>
+              </div>
+              <div className="min-w-0">
+                <p className="text-lg sm:text-2xl font-bold text-foreground leading-tight">{stat.value}</p>
+                <p className="text-[10px] sm:text-xs text-muted leading-tight">{stat.label}</p>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-border/50 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-              <svg className="w-5 h-5 text-emerald-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">{deliveredOrders.length}</p>
-              <p className="text-xs text-muted">Delivered</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-border/50 p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-veg/5 flex items-center justify-center">
-              <svg className="w-5 h-5 text-veg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-2xl font-bold text-foreground">₹{totalRevenue.toLocaleString("en-IN")}</p>
-              <p className="text-xs text-muted">Revenue</p>
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Status Filter Pills */}

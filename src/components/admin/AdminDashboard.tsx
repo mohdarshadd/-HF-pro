@@ -168,63 +168,27 @@ export default function AdminDashboard() {
         ) : (
           <>
             {/* Stats Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-              <div className="bg-white rounded-2xl border border-border/50 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-brand/5 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-brand" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">{items.length}</p>
-                    <p className="text-xs text-muted">Total Items</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-border/50 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-veg/5 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-veg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">{availableCount}</p>
-                    <p className="text-xs text-muted">In Stock</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
+              {[
+                { value: items.length, label: "Total Items", bg: "bg-brand/5", color: "text-brand", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /> },
+                { value: availableCount, label: "In Stock", bg: "bg-veg/5", color: "text-veg", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /> },
+                { value: outOfStockCount, label: "Out of Stock", bg: "bg-red-50", color: "text-red-500", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /> },
+                { value: uniqueCategories.length, label: "Categories", bg: "bg-blue-50", color: "text-blue-500", icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" /></> },
+              ].map((stat, i) => (
+                <div key={i} className="bg-white rounded-xl border border-border/50 p-3 sm:p-4 overflow-hidden">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
+                      <svg className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        {stat.icon}
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-lg sm:text-2xl font-bold text-foreground leading-tight">{stat.value}</p>
+                      <p className="text-[10px] sm:text-xs text-muted leading-tight">{stat.label}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-border/50 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">{outOfStockCount}</p>
-                    <p className="text-xs text-muted">Out of Stock</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl border border-border/50 p-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                    <svg className="w-5 h-5 text-blue-500" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-2xl font-bold text-foreground">{uniqueCategories.length}</p>
-                    <p className="text-xs text-muted">Categories</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
 
             {/* Toolbar */}
