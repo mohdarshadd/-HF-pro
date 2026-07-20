@@ -266,9 +266,9 @@ export default function AdminDashboard() {
                 )}
               </div>
             ) : (
-              <div className="bg-white rounded-2xl border border-border/50 overflow-hidden">
+              <div className="bg-white rounded-2xl border border-border/50">
                 {/* Desktop Table */}
-                <div className="hidden sm:block overflow-x-auto">
+                <div className="hidden sm:block">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-border/50">
