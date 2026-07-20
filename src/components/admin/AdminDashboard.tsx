@@ -155,7 +155,7 @@ export default function AdminDashboard() {
   const outOfStockCount = items.filter((i) => !i.isAvailable).length;
 
   return (
-    <div className="min-h-screen bg-cream/30">
+    <div className="min-h-screen bg-cream/30 overflow-x-hidden">
       <AdminHeader
         activeTab={activeTab}
         onTabChange={setActiveTab}
@@ -175,16 +175,16 @@ export default function AdminDashboard() {
                 { value: outOfStockCount, label: "Out of Stock", bg: "bg-red-50", color: "text-red-500", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /> },
                 { value: uniqueCategories.length, label: "Categories", bg: "bg-blue-50", color: "text-blue-500", icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" /></> },
               ].map((stat, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border/50 p-3 sm:p-4 overflow-hidden">
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
-                      <svg className={`w-4 h-4 sm:w-5 sm:h-5 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <div key={i} className="bg-white rounded-xl border border-border/50 p-2.5 sm:p-4">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-7 h-7 sm:w-10 sm:h-10 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
+                      <svg className={`w-3.5 h-3.5 sm:w-5 sm:h-5 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                         {stat.icon}
                       </svg>
                     </div>
                     <div className="min-w-0">
-                      <p className="text-lg sm:text-2xl font-bold text-foreground leading-tight">{stat.value}</p>
-                      <p className="text-[10px] sm:text-xs text-muted leading-tight">{stat.label}</p>
+                      <p className="text-base sm:text-2xl font-bold text-foreground leading-tight">{stat.value}</p>
+                      <p className="text-[9px] sm:text-xs text-muted leading-tight truncate">{stat.label}</p>
                     </div>
                   </div>
                 </div>
