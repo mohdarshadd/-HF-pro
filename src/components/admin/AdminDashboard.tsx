@@ -155,14 +155,14 @@ export default function AdminDashboard() {
   const outOfStockCount = items.filter((i) => !i.isAvailable).length;
 
   return (
-    <div className="min-h-screen bg-cream/30 overflow-x-hidden">
+    <div className="min-h-screen bg-cream/30">
       <AdminHeader
         activeTab={activeTab}
         onTabChange={setActiveTab}
         menuCount={items.length}
       />
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {activeTab === "orders" ? (
           <OrdersList />
         ) : (
