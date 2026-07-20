@@ -162,29 +162,29 @@ export default function AdminDashboard() {
         menuCount={items.length}
       />
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 overflow-hidden">
         {activeTab === "orders" ? (
           <OrdersList />
         ) : (
           <>
             {/* Stats Row */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-4 sm:mb-6">
               {[
-                { value: items.length, label: "Total Items", bg: "bg-brand/5", color: "text-brand", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" /> },
-                { value: availableCount, label: "In Stock", bg: "bg-veg/5", color: "text-veg", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /> },
-                { value: outOfStockCount, label: "Out of Stock", bg: "bg-red-50", color: "text-red-500", icon: <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" /> },
-                { value: uniqueCategories.length, label: "Categories", bg: "bg-blue-50", color: "text-blue-500", icon: <><path strokeLinecap="round" strokeLinejoin="round" d="M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3z" /><path strokeLinecap="round" strokeLinejoin="round" d="M6 6h.008v.008H6V6z" /></> },
+                { value: items.length, label: "Total Items", bg: "bg-brand/5", color: "text-brand", iconPath: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" },
+                { value: availableCount, label: "In Stock", bg: "bg-veg/5", color: "text-veg", iconPath: "M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" },
+                { value: outOfStockCount, label: "Out of Stock", bg: "bg-red-50", color: "text-red-500", iconPath: "M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" },
+                { value: uniqueCategories.length, label: "Categories", bg: "bg-blue-50", color: "text-blue-500", iconPath: "M9.568 3H5.25A2.25 2.25 0 003 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 005.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 009.568 3zM6 6h.008v.008H6V6z" },
               ].map((stat, i) => (
-                <div key={i} className="bg-white rounded-xl border border-border/50 p-2.5 sm:p-4">
-                  <div className="flex items-center gap-2">
-                    <div className={`w-7 h-7 sm:w-10 sm:h-10 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
-                      <svg className={`w-3.5 h-3.5 sm:w-5 sm:h-5 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-                        {stat.icon}
+                <div key={i} className="bg-white rounded-xl border border-border/50 p-3 overflow-hidden">
+                  <div className="flex items-center gap-2.5">
+                    <div className={`w-8 h-8 rounded-lg ${stat.bg} flex items-center justify-center shrink-0`}>
+                      <svg className={`w-4 h-4 ${stat.color}`} fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" d={stat.iconPath} />
                       </svg>
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-base sm:text-2xl font-bold text-foreground leading-tight">{stat.value}</p>
-                      <p className="text-[9px] sm:text-xs text-muted leading-tight truncate">{stat.label}</p>
+                    <div className="min-w-0 w-full">
+                      <p className="text-base font-bold text-foreground leading-tight whitespace-nowrap">{stat.value}</p>
+                      <p className="text-[10px] text-muted leading-tight truncate">{stat.label}</p>
                     </div>
                   </div>
                 </div>

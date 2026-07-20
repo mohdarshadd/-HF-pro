@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import RouteLayout from "@/components/layout/RouteLayout";
 import CartDrawerWrapper from "@/components/cart/CartDrawerWrapper";
 
 const geistSans = Geist({
@@ -36,6 +35,12 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -44,9 +49,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body className="min-h-screen flex flex-col bg-white antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <RouteLayout>{children}</RouteLayout>
         <CartDrawerWrapper />
       </body>
     </html>
