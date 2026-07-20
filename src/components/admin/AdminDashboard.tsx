@@ -155,14 +155,15 @@ export default function AdminDashboard() {
   const outOfStockCount = items.filter((i) => !i.isAvailable).length;
 
   return (
-    <div className="min-h-screen bg-cream/30">
+    <div className="flex flex-col h-dvh bg-cream/30">
       <AdminHeader
         activeTab={activeTab}
         onTabChange={setActiveTab}
         menuCount={items.length}
       />
 
-      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
+      <div className="flex-1 min-h-0 overflow-y-auto">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6">
         {activeTab === "orders" ? (
           <OrdersList />
         ) : (
@@ -416,6 +417,7 @@ export default function AdminDashboard() {
             )}
           </>
         )}
+        </div>
       </div>
 
       {/* Add/Edit Modal */}
